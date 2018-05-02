@@ -1,0 +1,262 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>ASP.NET API</h1>
+    <h2>Api to parse a String into a Json or a Json into a String</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>
+            Loading data...<h2>
+                <div class="box box-primary">
+                    <div class="box-header with-border row">
+                    </div>
+
+                    <div class="box">
+                        <div class="box-body">
+                            <table id="tblAgreement" class="table table-bordered" style="width:90%; margin-left:auto; margin-right:auto;">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center;">Contratar</th>
+                                        <th style="text-align:center;">Status</th>
+                                        <th style="text-align:center">N° do registro/Nota Fiscal</th>
+                                        <th style="text-align:center">Pagador</th>
+                                        <th style="text-align:center">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align:center;"></tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td>Total de registros:</td>
+                                        <td><div class="total">0</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td>Valor total:</td>
+                                        <td><div class="totalValor">0</div></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <div class="box-footer row">
+                        <div class="column">
+                            <button type="button" class="btn btn-primary" onclick="enviarRegistros();">Enviar registros</button>
+                            <button type="button" class="btn btn-primary" onclick="window.location = '/Home/Index';">Reload</button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:25px;" id="registroMsg"></div>
+                </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h2>New Register</h2>
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="box box-primary">
+                <div class="box-header with-border row">
+                    <h3 class="box-title large-6 column">Cadastrar</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="bancoEmissor">Banco Emissor</label>
+                                <select id="bancoEmissor" class="form-control">
+                                    <option>Selecione um dado...</option>
+                                    <option value="01">Teste 01</option>
+                                    <option value="02">Teste 02</option>
+                                    <option value="03">Teste 03</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="razaSocialBene">Texto 01:</label>
+                                <input id="razaSocialBene" class="form-control" style="text-align:left" placeholder="Texto 01">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="tPBeneficiario">Beneficiário</label>
+                                <input type="radio" name="tPBeneficiario" value="PF" checked> PF
+                                <input type="radio" name="tPBeneficiario" value="PJ"> PJ<br>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="CNPJBene">Texto 02:</label>
+                                <input id="CNPJBene" class="form-control" min="0" style="text-align:left" placeholder="___.___.__-__">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="nomePagador">Pagador:</label>
+                                <input id="nomePagador" class="form-control" style="text-align:left">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="tPSacado">PF/PJ</label>
+                                <input type="radio" name="tPSacado" value="PF" checked> PF
+                                <input type="radio" name="tPSacado" value="PJ"> PJ<br>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="CNPJSacado">Texto 03:</label>
+                                <input id="CNPJSacado" class="form-control" min="0" style="text-align:left" placeholder="___.___.__-__">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="nroSeuRegistro">N° do registro/Nota Fiscal</label>
+                                <input id="nroSeuRegistro" class="form-control" min="0" style="text-align:right">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="moeda">Moeda</label>
+                                <select id="moeda" class="form-control">
+                                    <option value="">Selecione a moeda...</option>
+                                    <option value="real">R$</option>
+                                    <option value="dolar">$</option>
+                                    <option value="euro">€</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4" style="float:left;">
+                                <label for="valor">Valor registro</label>
+                                <input id="valor" class="form-control" min="0" style="text-align:right" placeholder="00,00">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="dataEmissao">Data Emissão</label>
+                                <input id="dataEmissao" class="form-control" style="text-align:right">
+                            </div>
+                            <div class="col-md-4" style="float:left;">
+                                <label for="dataVencto">Data Vencimento</label>
+                                <input id="dataVencto" class="form-control" style="text-align:right">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="row" style="margin-top:25px;">
+                        <button type="button" class="btn btn-primary" onclick="criarRegistro()">Criar cadastro</button>
+                    </div>
+                    <div class="row" style="margin-top:25px;" id="registroMsg"></div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        /*carrega registros*/
+        var json;
+        //$.get("http://www.tagcode.com.br/vidly/api/stringona", function (response) {
+        $.get("http://localhost:22976/api/jsonstring", function (response) {
+            json = response;
+            console.log(json);
+            var tr;
+            for (var i = 0; i < json.length; i++) {
+                if (json[i].projeto == "jsonstring") {
+                    var arrayJson = $.parseJSON(json[i].texto);
+                    console.log(arrayJson);
+                    tr = $('<tr>');
+                    if (arrayJson.status == "icon-ok") {
+                        tr.append('<td><input type="checkbox" data-registro="' + json[i].id + '" data-nota="' + arrayJson.nroSeuRegistro + '" data-valor="' + arrayJson.valor + '" /></td>');
+                    } else {
+                        tr.append('<td></td>');
+                    }
+                    tr.append('<td><div class="' + arrayJson.status + '"></div></td>');
+                    tr.append("<td>" + arrayJson.nroSeuRegistro + "</td>");
+                    tr.append("<td>" + arrayJson.nomePagador + "</td>");
+                    tr.append("<td>R$" + arrayJson.valor + "</td>");
+                    tr.append = $('</tr>');
+                    $('table tbody').append(tr);
+                }
+            }
+            var $cs = $('input[type=checkbox]').change(function () {
+                var v = 0;
+                var vQtd = 0;
+                $cs.filter(':checked').each(function () {
+                    v += parseFloat($(this).data('valor'));
+                    vQtd += 1;
+                });
+                $('.totalValor').html("R$" + v.toFixed(2));
+                $('.total').html(vQtd);
+            });
+            $('input[type=checkbox]:checked').change();
+        });
+
+
+    });
+    function enviarRegistros() {
+        $("#registroMsg").empty();
+        $(function () {
+            $("input[type=checkbox]:checked").each(function (i) {
+                console.log($(this).data('registro') + $(this).data('nota'));
+            });
+        });
+    }
+
+    function criarRegistro() {
+        var xStatus = "icon-nok";
+        if (parseFloat($("#valor").val()) >= 100) {
+            var xStatus = "icon-ok";
+        }
+        var registro = {
+            bancoEmissor: $("#bancoEmissor option:selected").attr("value"),
+            razaSocialBene: $("#razaSocialBene").val(),
+            tPBeneficiario: $('input[name=tPBeneficiario]:checked').val(),
+            CNPJBene: $("#CNPJBene").val(),
+            nomePagador: $("#nomePagador").val(),
+            tPSacado: $('input[name=tPSacado]:checked').val(),
+            CNPJSacado: $("#CNPJSacado").val(),
+            nroSeuRegistro: $("#nroSeuRegistro").val(),
+            moeda: $("#moeda option:selected").attr("value"),
+            valor: $("#valor").val(),
+            dataEmissao: $("#dataEmissao").val(),
+            dataVencto: $("#dataVencto").val(),
+            status: xStatus
+
+        }
+
+        var someObjStr = JSON.stringify(registro);
+        var registroX = {
+            projeto: "jsonstring",
+            texto: '' + someObjStr + ''
+        }
+        var someObjStr = JSON.parse(JSON.stringify(registroX));
+        console.log("someObjStr: ");
+        console.log(someObjStr);
+        $.ajax({
+            type: "POST",
+            dataType: "json", //nao precisa
+            crossDomain: true,
+            //url: "http://www.tagcode.com.br/vidly/api/stringona/",
+            url: "http://localhost:22976/api/jsonstring",
+            data: someObjStr, //Assim funciona! 'projeto=x&texto=xx',
+            //Se por isso não funciona contentType: "application/json",
+            success: function (data) {
+                console.log("OK:");
+                console.log(data);
+                $("#registroMsg").html(
+                "<div class='alert alert-success'>" +
+                    "<strong>Success!</strong> - Reload the page!" +
+                "</div>");
+                console.log(data);
+            },
+            error: function (xhr, err) {
+                $("#registroMsg").html(
+                "<div class='alert alert-danger'>" +
+                    "<strong>Error!!!</strong>" +
+                "</div>");
+                console.log("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);
+                console.log("responseText: " + xhr.responseText);
+            }
+        });
+    }
+</script>
